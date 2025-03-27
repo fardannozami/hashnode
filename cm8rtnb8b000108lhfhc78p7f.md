@@ -8,7 +8,7 @@ tags: go
 
 ---
 
-Setelah sebelumnya kita sudah membahas tipe data string, boolean dan number, sekrang kita lanjutkan dengan  beberapa tipe data penting yang sering digunakan, yaitu **Array, Slice, dan Map**.
+Setelah sebelumnya kita sudah membahas tipe data string, boolean dan number, sekarang kita lanjutkan dengan  beberapa tipe data penting yang sering digunakan, yaitu **Array, Slice, dan Map**.
 
 * **Array** digunakan untuk menyimpan sejumlah elemen dengan panjang tetap.
     

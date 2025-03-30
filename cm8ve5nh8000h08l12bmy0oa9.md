@@ -3,7 +3,7 @@ title: "Function di Golang"
 datePublished: Sun Mar 30 2025 08:41:38 GMT+0000 (Coordinated Universal Time)
 cuid: cm8ve5nh8000h08l12bmy0oa9
 slug: function-di-golang
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1743323919845/3d9eb9cd-699f-46bc-8f10-6308e3f9530a.png
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1743324353348/6b76c111-226a-4af1-9b00-31a83009aa4a.png
 tags: go
 
 ---

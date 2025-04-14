@@ -90,6 +90,19 @@ Penjelasan:
 * `*ptr` digunakan untuk mengakses nilai yang ditunjuk pointer
     
 
+### 🏠 Analogi Simpel
+
+Bayangin:
+
+* `x` = sebuah kotak berisi angka **10**
+    
+* `&x` = alamat kotak (misalnya: "Jl. Memory No. 80")
+    
+* `ptr` = catatan alamat tersebut
+    
+* `*ptr` = buka kotaknya dan lihat isinya → hasilnya 10
+    
+
 ---
 
 ### 3\. Mengubah Nilai Lewat Pointer

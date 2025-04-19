@@ -1,6 +1,6 @@
 ---
 title: "Package errors, os, dan flag di Golang"
-datePublished: Sat Apr 19 2025 14:54:57 GMT+0000 (Coordinated Universal Time)
+datePublished: Thu Apr 17 2025 17:00:00 GMT+0000 (Coordinated Universal Time)
 cuid: cm9ocarvu00180alh04teeqol
 slug: package-errors-os-dan-flag-di-golang
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1745074231998/e4c81c21-88ae-4dea-9883-13e2aff0f30f.png

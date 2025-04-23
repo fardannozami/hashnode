@@ -10,9 +10,7 @@ tags: go
 
 Selamat datang kembali di seri tutorial Golang Standard Library! Pada artikel sebelumnya, kita telah membahas tentang package `fmt` dan `strings` Kali ini, kita akan membahas tentang package `io` dan `bufio` yang sangat penting dalam pengembangan aplikasi Golang, terutama dalam hal pengelolaan input/output (I/O).
 
----
-
-### **Package io**
+## **Package io**
 
 Package `io` menyediakan fungsi-fungsi dasar untuk melakukan operasi input/output (I/O) di Golang. Package ini menyediakan interface untuk membaca dan menulis data ke berbagai sumber, seperti file, jaringan, dan lain-lain.
 
@@ -29,7 +27,7 @@ Berikut beberapa interface dan fungsi yang paling umum digunakan dalam package `
 * `io.ReadAll`: Fungsi untuk membaca seluruh data dari `io.Reader` dan mengembalikannya sebagai slice byte. Tandatangan: `func ReadAll(r io.Reader) ([]byte, error)`.
     
 
-#### Contoh penggunaan package `io`:
+### Contoh penggunaan package `io`:
 
 ```go
 package main
@@ -61,9 +59,7 @@ func main() {
 }
 ```
 
----
-
-### **Package bufio**
+## **Package bufio**
 
 Package `bufio` menyediakan fungsi-fungsi untuk melakukan operasi I/O yang lebih efisien dan efektif dengan menggunakan buffer. Buffering sangat bermanfaat saat membaca file besar atau data dari jaringan, karena dapat mengurangi jumlah *read call* ke sumber data, sehingga meningkatkan performa aplikasi.
 
@@ -76,7 +72,7 @@ Berikut beberapa tipe dan fungsi yang umum digunakan dalam package `bufio`:
 * `bufio.Scanner`: Digunakan untuk membaca data baris per baris atau token per token. Memiliki metode `Scan()` dan `Text()`.
     
 
-#### Contoh penggunaan `bufio.Reader`:
+### Contoh penggunaan `bufio.Reader`:
 
 ```go
 package main
@@ -110,7 +106,7 @@ func main() {
 }
 ```
 
-#### Contoh penggunaan `bufio.Scanner`:
+### Contoh penggunaan `bufio.Scanner`:
 
 ```go
 package main
@@ -142,9 +138,7 @@ func main() {
 }
 ```
 
----
-
-### **Perbedaan antara io dan bufio**
+## **Perbedaan antara io dan bufio**
 
 | Aspek | io | bufio |
 | --- | --- | --- |
@@ -155,9 +149,7 @@ func main() {
 
 Buffer di `bufio` memungkinkan aplikasi untuk memproses data dalam jumlah besar secara efisien, tanpa harus berulang kali melakukan operasi baca-tulis langsung ke sumber I/O.
 
----
-
-### **Kapan Menggunakan io dan bufio**
+## **Kapan Menggunakan io dan bufio**
 
 Beberapa tips pemilihan:
 
@@ -167,7 +159,5 @@ Beberapa tips pemilihan:
     
 * Gunakan `bufio.Scanner` saat ingin memproses data berbasis baris, seperti membaca log file atau input pengguna.
     
-
----
 
 Dengan memahami dan menggunakan `io` dan `bufio` secara tepat, kamu bisa membuat aplikasi yang tidak hanya fungsional, tapi juga efisien dalam pengelolaan data I/O. Sampai jumpa di artikel berikutnya!

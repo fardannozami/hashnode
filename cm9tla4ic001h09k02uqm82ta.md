@@ -135,54 +135,35 @@ Package `io` menyediakan berbagai interface dan fungsi dasar untuk operasi I/O. 
 
 Package `io` juga menyediakan beberapa fungsi bantuan seperti `io.Copy`, `io.ReadAll`, dan `io.WriteString` yang memudahkan operasi I/O.
 
-* **io.Copy**: Menyalin data dari `Reader` ke `Writer`.
-    
-    ```go
+* ```go
     package main
     
     import (
-        "fmt"
-        "io"
-        "strings"
+    	"fmt"
+    	"io"
+    	"os"
     )
     
     func main() {
-        // Membuat Reader dari string
-        r := strings.NewReader("Hello, World!")
-        
-        // Membuat Writer menggunakan strings.Builder
-        w := new(strings.Builder)
-        
-        // Menyalin data dari Reader ke Writer
-        _, err := io.Copy(w, r)
-        
-        // Memeriksa apakah ada error saat menyalin
-        if err != nil {
-            fmt.Println("Error:", err)
-        }
-        
-        // Mencetak hasil dari Writer
-        fmt.Println(w.String())
+    	fmt.Println("Ketik sesuatu, lalu tekan Ctrl+D (Linux/macOS) atau Ctrl+Z (Windows) untuk selesai:")
+    
+    	// Buka (atau buat) file output.txt
+    	file, err := os.Create("output.txt")
+    	if err != nil {
+    		fmt.Println("Gagal membuat file:", err)
+    		return
+    	}
+    	defer file.Close()
+    
+    	// Salin semua input dari stdin ke file
+    	_, err = io.Copy(file, os.Stdin)
+    	if err != nil {
+    		fmt.Println("Gagal menulis ke file:", err)
+    		return
+    	}
+    
+    	fmt.Println("Isi berhasil disimpan ke output.txt")
     }
-    ```
-    
-    **Penjelasan Kode:**
-    
-    * `strings.NewReader("Hello, World!")` membuat `Reader` dari string.
-        
-    * `new(strings.Builder)` membuat `Writer` yang akan menyimpan data yang disalin.
-        
-    * `io.Copy(w, r)` menyalin seluruh data dari `Reader` ke `Writer`. Fungsi ini mengembalikan jumlah byte yang disalin dan error jika ada.
-        
-    * Jika ada error saat menyalin, kita cetak error tersebut.
-        
-    * `w.String()` mengembalikan string dari data yang telah disalin ke `Writer`.
-        
-    
-    Output:
-    
-    ```plaintext
-    Hello, World!
     ```
     
 

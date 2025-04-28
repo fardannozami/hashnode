@@ -146,35 +146,21 @@ Cara lain yang lebih idiomatik di Go adalah menggunakan **Channel**.
 
 ```go
 func TestRaceConditionWithChannel(t *testing.T) {
-	counter := 0
-	ch := make(chan bool)
+	var counter int
+	channel := make(chan struct{}, 1) // Use a buffered channel
 
 	for i := 0; i < 1000; i++ {
 		go func() {
-			ch <- true
+			channel <- struct{}{} // Send an empty struct to the channel
+			counter++
+			<-channel // Receive from the channel
 		}()
 	}
 
-	go func() {
-		for i := 0; i < 1000; i++ {
-			<-ch
-			counter++
-		}
-	}()
-
-	time.Sleep(1 * time.Second)
+	time.Sleep(2 * time.Second)
 	fmt.Println("Counter:", counter)
 }
 ```
-
-🧠 **Penjelasan:**
-
-* Tiap goroutine mengirim sinyal ke channel.
-    
-* Goroutine khusus mendengarkan channel dan menambahkan `counter` satu per satu.
-    
-* Dengan cara ini, **akses counter tetap aman**.
-    
 
 ---
 

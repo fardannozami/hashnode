@@ -122,13 +122,6 @@ func TestManyGoroutines(t *testing.T) {
 
 Dengan Goroutine, kamu bisa membuat program Go menjalankan banyak tugas secara **bersamaan** hanya dengan satu keyword: `go`. Ini sangat berguna untuk membuat program yang lebih cepat dan responsif, terutama saat menangani banyak proses atau request.
 
-💡 Di tutorial selanjutnya, kita akan belajar:
-
-* Cara **menunggu goroutine selesai** dengan `sync.WaitGroup`
-    
-* Cara menghindari **race condition**
-    
-
 ---
 
 Kalau kamu punya pertanyaan atau ide eksperimen lain, langsung aja tulis di komentar atau diskusi.  

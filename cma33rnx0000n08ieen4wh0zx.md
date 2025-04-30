@@ -116,17 +116,3 @@ Hari ini kita belajar:
 * Channel direction membuat kode Go kita lebih **aman, bersih, dan jelas**.
     
 * Menggunakan channel direction adalah praktik yang baik terutama dalam aplikasi yang kompleks.
-    
-
----
-
-## Apa Selanjutnya?
-
-Di **Golang Goroutine #9**, kita akan bahas **Select dengan Timeout**:  
-Bagaimana caranya agar `select` tidak menunggu selamanya, tapi ada batas waktunya! ⏰
-
----
-
-Kalau mau, aku bisa sekalian buatkan **file** `.go` berisi semua contoh kode Channel Direction ini.  
-Atau sekalian mau kita lanjut ke **Select Timeout**? 🚀  
-(Mau sekalian buatkan daftar isi besar untuk seluruh Seri Golang Goroutine juga?) 📚🔥

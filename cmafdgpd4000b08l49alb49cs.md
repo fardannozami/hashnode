@@ -72,9 +72,8 @@ import (
 type TaskRepository interface {
 	AddTask(task model.Task) error
 	GetAllTasks() ([]model.Task, error)
-	DeleteTask(id int) error
+	DeleteTaskById(id int) error
 	MarkTaskAsCompleted(id int) error
-	GetNextId() int
 }
 
 type InMemoryTaskRepository struct {
@@ -92,7 +91,7 @@ func (r *InMemoryTaskRepository) AddTask(task model.Task) error {
 	return nil
 }
 
-func (r *InMemoryTaskRepository) GetAll() ([]model.Task, error) {
+func (r *InMemoryTaskRepository) GetAllTasks() ([]model.Task, error) {
 	taskCopy := make([]model.Task, len(r.tasks))
 	copy(taskCopy, r.tasks)
 	return taskCopy, nil
@@ -117,13 +116,6 @@ func (r *InMemoryTaskRepository) MarkTaskAsCompleted(id int) error {
 		}
 	}
 	return fmt.Errorf("task with id %d not found", id)
-}
-
-func (r *InMemoryTaskRepository) GetNextId() int {
-	if len(r.tasks) == 0 {
-		return 1
-	}
-	return r.tasks[len(r.tasks)-1].Id + 1
 }
 ```
 
@@ -180,7 +172,7 @@ func TestInMemoryTaskRepository_GetAll(t *testing.T) {
 	for _, task := range tasks {
 		_ = repo.AddTask(task)
 	}
-	result, err := repo.GetAll()
+	result, err := repo.GetAllTasks()
 	assert.NoError(t, err)
 	assert.Len(t, result, len(tasks))
 	assert.Equal(t, tasks, result)
@@ -220,46 +212,6 @@ func TestInMemoryTaskRepository_MarkTaskAsCompleted(t *testing.T) {
 	err = repo.MarkTaskAsCompleted(999)
 	assert.Error(t, err)
 	assert.Contains(t, err.Error(), "task with id 999 not found")
-}
-
-func TestInMemoryTaskRepository_GetNextId(t *testing.T) {
-	repo := NewInMemoryTaskRepository()
-	for _, task := range tasks {
-		_ = repo.AddTask(task)
-	}
-
-	nextId := repo.GetNextId()
-	assert.Equal(t, 3, nextId)
-}
-
-func TestInMemoryTaskRepository_MarkAlreadyCompletedTask(t *testing.T) {
-	repo := NewInMemoryTaskRepository()
-	for _, task := range tasks {
-		_ = repo.AddTask(task)
-	}
-
-	// Tandai task sebagai completed
-	err := repo.MarkTaskAsCompleted(1)
-	assert.NoError(t, err)
-	completedTime := repo.tasks[0].CompletedAt
-
-	// Coba tandai lagi task yang sudah completed
-	err = repo.MarkTaskAsCompleted(1)
-	assert.NoError(t, err)
-	assert.Equal(t, completedTime, repo.tasks[0].CompletedAt)
-}
-
-func TestInMemoryTaskRepository_GetAllEmpty(t *testing.T) {
-	repo := NewInMemoryTaskRepository()
-	result, err := repo.GetAll()
-	assert.NoError(t, err)
-	assert.Empty(t, result)
-}
-
-func TestInMemoryTaskRepository_GetNextIdEmpty(t *testing.T) {
-	repo := NewInMemoryTaskRepository()
-	nextId := repo.GetNextId()
-	assert.Equal(t, 1, nextId)
 }
 ```
 

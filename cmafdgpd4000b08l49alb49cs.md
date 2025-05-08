@@ -66,14 +66,15 @@ import (
 	"fmt"
 	"time"
 
-	"golang-todolist-cli/internal/model"
+	"github.com/fardannozami/golang-todolist-cli/internal/model"
 )
 
 type TaskRepository interface {
 	AddTask(task model.Task) error
-	GetAll() ([]model.Task, error)
-	DeleteTaskById(id int) error
+	GetAllTasks() ([]model.Task, error)
+	DeleteTask(id int) error
 	MarkTaskAsCompleted(id int) error
+	GetNextId() int
 }
 
 type InMemoryTaskRepository struct {
@@ -117,6 +118,13 @@ func (r *InMemoryTaskRepository) MarkTaskAsCompleted(id int) error {
 	}
 	return fmt.Errorf("task with id %d not found", id)
 }
+
+func (r *InMemoryTaskRepository) GetNextId() int {
+	if len(r.tasks) == 0 {
+		return 1
+	}
+	return r.tasks[len(r.tasks)-1].Id + 1
+}
 ```
 
 ---
@@ -134,7 +142,7 @@ import (
 	"testing"
 	"time"
 
-	"golang-todolist-cli/internal/model"
+	"github.com/fardannozami/golang-todolist-cli/internal/model"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -212,6 +220,16 @@ func TestInMemoryTaskRepository_MarkTaskAsCompleted(t *testing.T) {
 	err = repo.MarkTaskAsCompleted(999)
 	assert.Error(t, err)
 	assert.Contains(t, err.Error(), "task with id 999 not found")
+}
+
+func TestInMemoryTaskRepository_GetNextId(t *testing.T) {
+	repo := NewInMemoryTaskRepository()
+	for _, task := range tasks {
+		_ = repo.AddTask(task)
+	}
+
+	nextId := repo.GetNextId()
+	assert.Equal(t, 3, nextId)
 }
 ```
 

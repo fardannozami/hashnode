@@ -59,9 +59,9 @@ Contoh (semua tugas):
 ```plaintext
 tasks list -a
 ID    Tugas                                             Dibuat                Selesai
-1     Rapikan meja kerja                               2 menit yang lalu     false
-2     Tulis dokumentasi fitur baru                     1 menit yang lalu     true
-3     Ubah pengaturan keyboard ke mode escape/control  1 menit yang lalu     false
+1     Rapikan meja kerja                               2 menit yang lalu     1 menit yang lalu
+2     Tulis dokumentasi fitur baru                     1 menit yang lalu     1 menit yang lalu
+3     Ubah pengaturan keyboard ke mode escape/control  1 menit yang lalu     1 menit yang lalu
 ```
 
 ### Perintah `complete`
@@ -92,8 +92,6 @@ Akan menghapus tugas dengan ID 2.
 
 ## Package yang Digunakan
 
-* `encoding/csv` – Untuk membaca dan menulis data ke format CSV.
-    
 * `strconv` – Untuk konversi antar tipe data.
     
 * `text/tabwriter` – Untuk menampilkan output terformat di terminal.
@@ -108,15 +106,6 @@ Akan menghapus tugas dengan ID 2.
 ---
 
 ## Sumber Tambahan
-
-### Contoh File CSV
-
-```plaintext
-ID,Description,CreatedAt,IsComplete
-1,Tugas baru saya,2025-05-07T16:45:19-05:00,true
-2,Selesaikan video ini,2025-05-07T16:45:26-05:00,true
-3,Cari editor video,2025-05-07T16:45:31-05:00,false
-```
 
 ---
 
@@ -163,7 +152,5 @@ func closeFile(f *os.File) error {
 ## Fitur Tambahan (Opsional)
 
 * Ubah field `IsComplete` menjadi timestamp (waktu penyelesaian), bukan boolean.
-    
-* Ganti format penyimpanan dari CSV ke JSON, JSONL, atau SQLite.
     
 * Tambahkan tanggal jatuh tempo (`due date`) opsional pada setiap tugas.

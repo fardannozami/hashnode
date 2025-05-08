@@ -231,6 +231,36 @@ func TestInMemoryTaskRepository_GetNextId(t *testing.T) {
 	nextId := repo.GetNextId()
 	assert.Equal(t, 3, nextId)
 }
+
+func TestInMemoryTaskRepository_MarkAlreadyCompletedTask(t *testing.T) {
+	repo := NewInMemoryTaskRepository()
+	for _, task := range tasks {
+		_ = repo.AddTask(task)
+	}
+
+	// Tandai task sebagai completed
+	err := repo.MarkTaskAsCompleted(1)
+	assert.NoError(t, err)
+	completedTime := repo.tasks[0].CompletedAt
+
+	// Coba tandai lagi task yang sudah completed
+	err = repo.MarkTaskAsCompleted(1)
+	assert.NoError(t, err)
+	assert.Equal(t, completedTime, repo.tasks[0].CompletedAt)
+}
+
+func TestInMemoryTaskRepository_GetAllEmpty(t *testing.T) {
+	repo := NewInMemoryTaskRepository()
+	result, err := repo.GetAll()
+	assert.NoError(t, err)
+	assert.Empty(t, result)
+}
+
+func TestInMemoryTaskRepository_GetNextIdEmpty(t *testing.T) {
+	repo := NewInMemoryTaskRepository()
+	nextId := repo.GetNextId()
+	assert.Equal(t, 1, nextId)
+}
 ```
 
 Untuk menjalankan test, cukup gunakan perintah:

@@ -45,6 +45,7 @@ $table->boolean('status')->default(true);
 $table->string('name');
 $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
 $table->foreignId('speciality_id')->constrained('specialities')->cascadeOnDelete();
+$table->string('image')->nullable();
 $table->text('bio')->nullable();
 $table->integer('experience')->nullable();
 $table->boolean('is_featured')->default(true); // typo diperbaiki dari text('is_featured('status)
@@ -153,6 +154,15 @@ public function doctor()
 public function patient()
 {
     return $this->belongsTo(Patient::class);
+}
+```
+
+### 🔹 User Model
+
+```php
+public function doctor()
+{
+    return $this->hasOne(Doctor::class);
 }
 ```
 

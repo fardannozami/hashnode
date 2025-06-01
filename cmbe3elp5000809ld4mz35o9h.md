@@ -4,6 +4,7 @@ datePublished: Sun Jun 01 2025 20:07:42 GMT+0000 (Coordinated Universal Time)
 cuid: cmbe3elp5000809ld4mz35o9h
 slug: golang-murni-bikin-rest-api-gampang-banget-nih-contohnya
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1748664188271/75be2cb6-4cfd-4b64-ac4b-b339450ab70e.png
+tags: go
 
 ---
 

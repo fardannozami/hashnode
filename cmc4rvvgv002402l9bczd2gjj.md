@@ -38,34 +38,35 @@ go mod init github.com/fardannozami/ticket-booking
 Masuk ke MySQL dan jalankan query berikut:
 
 ```sql
-CREATE DATABASE IF NOT EXISTS `ticket_booking`;
-USE `ticket_booking`;
-
 CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE events (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
     quota INT NOT NULL
 );
 
 CREATE TABLE seats (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     event_id INT NOT NULL,
-    seat_number VARCHAR(50) NOT NULL,
-    status ENUM('available', 'booked') DEFAULT 'available',
-    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
+    seat_number VARCHAR(20) NOT NULL,
+    status ENUM('AVAILABLE', 'BOOKED') DEFAULT 'AVAILABLE',
+    FOREIGN KEY (event_id) REFERENCES events(id) ON DElete CASCADE
 );
 
 CREATE TABLE bookings (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     event_id INT NOT NULL,
     seat_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+ -- Prevent duplicate booking for the same user/event/seat
+    UNIQUE KEY unique_user_event_seat (user_id, event_id, seat_id),
+    
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
     FOREIGN KEY (seat_id) REFERENCES seats(id) ON DELETE CASCADE

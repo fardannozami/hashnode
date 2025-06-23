@@ -40,10 +40,10 @@ Masuk ke MySQL dan jalankan query berikut:
 ```sql
 CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE events (
+CREATE TABLE events(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     quota INT NOT NULL
@@ -52,24 +52,24 @@ CREATE TABLE events (
 CREATE TABLE seats (
     id INT PRIMARY KEY AUTO_INCREMENT,
     event_id INT NOT NULL,
-    seat_number VARCHAR(20) NOT NULL,
+    seat_number VARCHAR(30) NOT NULL,
     status ENUM('AVAILABLE', 'BOOKED') DEFAULT 'AVAILABLE',
-    FOREIGN KEY (event_id) REFERENCES events(id) ON DElete CASCADE
+
+    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );
 
 CREATE TABLE bookings (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
     event_id INT NOT NULL,
     seat_id INT NOT NULL,
+    user_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
- -- Prevent duplicate booking for the same user/event/seat
-    UNIQUE KEY unique_user_event_seat (user_id, event_id, seat_id),
-    
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_booking (event_id, seat_id, user_id),
+
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
-    FOREIGN KEY (seat_id) REFERENCES seats(id) ON DELETE CASCADE
+    FOREIGN KEY (seat_id) REFERENCES seats(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 ```
 
@@ -125,7 +125,19 @@ func (repo *BookingRepositoryImpl) GetSeatStatus(ctx context.Context, tx *sql.Tx
 
 ---
 
-### 🛰️ Step 5: Unit Test untuk `GetSeatStatus`
+### 🛰️ Step 5: Buat Helper `helper/error.go`
+
+```go
+package helper
+
+func PanicIfError(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+```
+
+### 🛰️ Step 6: Unit Test untuk `GetSeatStatus`
 
 sebelumnya install dependency untuk testing dulu
 

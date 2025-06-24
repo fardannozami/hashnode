@@ -1,5 +1,5 @@
 ---
-title: "🎟️ Golang Ticket Booking System from Scratch – No Framework (Part 3)"
+title: "🎬 Golang Ticket Booking System from Scratch – No Framework (Part 3)"
 datePublished: Tue Jun 24 2025 06:08:57 GMT+0000 (Coordinated Universal Time)
 cuid: cmca4kkaa002002jsh26z89un
 slug: golang-ticket-booking-system-from-scratch-no-framework-part-3

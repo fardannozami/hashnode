@@ -54,6 +54,7 @@ ticket-booking/
 package controller
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
 
@@ -73,41 +74,29 @@ type bookingController struct {
 }
 
 func NewBookingController(bookingService service.BookingService) BookingController {
-	return &bookingController{bookingService: bookingService}
+	return &bookingController{
+		bookingService: bookingService,
+	}
 }
 
 func (c *bookingController) BookSeat(writer http.ResponseWriter, req *http.Request, params httprouter.Params) {
 	var bookCreateRequest request.BookingCreateRequest
 	decoder := json.NewDecoder(req.Body)
-
 	err := decoder.Decode(&bookCreateRequest)
 	helper.PanicIfError(err)
 
-	_, err = c.bookingService.BookSeat(
-		req.Context(),
-		bookCreateRequest.EventId,
-		bookCreateRequest.SeatId,
-		bookCreateRequest.UserId,
-	)
+	_, err = c.bookingService.BookSeat(context.Background(), bookCreateRequest.EventId, bookCreateRequest.SeatId, bookCreateRequest.UserId)
+	helper.PanicIfError(err)
 
-	writer.Header().Set("Content-Type", "application/json")
-
-	if err != nil {
-		writer.WriteHeader(http.StatusConflict)
-		json.NewEncoder(writer).Encode(response.ApiResponse{
-			Code:    http.StatusConflict,
-			Message: err.Error(),
-			Data:    nil,
-		})
-		return
-	}
-
-	writer.WriteHeader(http.StatusCreated)
-	json.NewEncoder(writer).Encode(response.ApiResponse{
+	apiResponse := response.ApiResponse{
 		Code:    http.StatusCreated,
 		Message: "created",
-		Data:    nil,
-	})
+	}
+
+	writer.Header().Set("Content-Type", "application/json")
+	err = json.NewEncoder(writer).Encode(&apiResponse)
+	helper.PanicIfError(err)
+
 }
 ```
 

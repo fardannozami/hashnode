@@ -164,7 +164,52 @@ func NewSqlDb() *sql.DB {
 
 ---
 
-## 4\. Menjalankan HTTP Server
+## 4\. Tambahkan Exception Handler
+
+### 📄 File: `exception/error_handler.go`
+
+```go
+package exception
+
+import (
+	"encoding/json"
+	"net/http"
+
+	"github.com/fardannozami/ticket-booking/helper"
+	"github.com/fardannozami/ticket-booking/response"
+)
+
+func ErrorHandler(w http.ResponseWriter, r *http.Request, err interface{}) {
+	internalServerError(w, r, err)
+}
+
+func internalServerError(w http.ResponseWriter, r *http.Request, err interface{}) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusInternalServerError)
+
+	var message string
+	switch e := err.(type) {
+	case string:
+		message = e
+	case error:
+		message = e.Error()
+	default:
+		message = "Unknown error"
+	}
+
+	apiResponse := response.ApiResponse{
+		Code:    http.StatusInternalServerError,
+		Message: "Internal Server Error",
+		Data:    message,
+	}
+
+	encode := json.NewEncoder(w)
+	error := encode.Encode(&apiResponse)
+	helper.PanicIfError(error)
+}
+```
+
+## 5\. Menjalankan HTTP Server
 
 ### 📄 File: `main.go`
 
@@ -176,6 +221,7 @@ import (
 
 	"github.com/fardannozami/ticket-booking/app"
 	"github.com/fardannozami/ticket-booking/controller"
+	"github.com/fardannozami/ticket-booking/exception"
 	"github.com/fardannozami/ticket-booking/helper"
 	"github.com/fardannozami/ticket-booking/repository"
 	"github.com/fardannozami/ticket-booking/service"
@@ -189,9 +235,11 @@ func main() {
 	bookingRepo := repository.NewBookingRepository()
 	bookingService := service.NewBookingService(db, bookingRepo)
 	bookingController := controller.NewBookingController(bookingService)
-
 	router := httprouter.New()
+
 	router.POST("/api/bookseat", bookingController.BookSeat)
+
+	router.PanicHandler = exception.ErrorHandler
 
 	server := http.Server{
 		Addr:    ":3000",

@@ -1,5 +1,5 @@
 ---
-title: "Swagger API Golang 📘 | Step by Step Pakai Swaggo"
+title: "Swagger API Golang | Step by Step Pakai Swaggo"
 datePublished: Wed Jul 09 2025 01:41:47 GMT+0000 (Coordinated Universal Time)
 cuid: cmcvamr45000402ju6fgf227u
 slug: swagger-api-golang-step-by-step-pakai-swaggo

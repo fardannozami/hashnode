@@ -1,6 +1,6 @@
 ---
 title: "coder telo welcome"
-datePublished: Fri Dec 05 2025 17:00:00 GMT+0000 (Coordinated Universal Time)
+datePublished: Thu Dec 04 2025 17:00:00 GMT+0000 (Coordinated Universal Time)
 cuid: cmisuu669000d02jr9omva7oe
 slug: coder-telo-welcome
 

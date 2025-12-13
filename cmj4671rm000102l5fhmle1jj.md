@@ -1,8 +1,8 @@
 ---
-title: "Claim Management System - Introduction"
+title: "Claim Management System - Introduction (Part 1)"
 datePublished: Sat Dec 13 2025 10:45:45 GMT+0000 (Coordinated Universal Time)
 cuid: cmj4671rm000102l5fhmle1jj
-slug: claim-management-system-introduction
+slug: claim-management-system-introduction-part-1
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1765621944286/f66f1d5e-8882-4c8d-b8da-3890a2a9be77.png
 tags: laravel, filament
 

@@ -278,8 +278,6 @@ Schema::create('promo_rates', function (Blueprint $table) {
         ->constrained()
         ->restrictOnDelete();
 
-    $table->date('starts_at');
-    $table->date('ends_at');
     $table->unsignedBigInteger('amount_per_item');
 
     $table->timestamps();
@@ -287,8 +285,6 @@ Schema::create('promo_rates', function (Blueprint $table) {
     $table->unique([
         'promo_program_id',
         'product_id',
-        'starts_at',
-        'ends_at'
     ], 'promo_rate_unique');
 });
 ```
@@ -411,7 +407,7 @@ Schema::create('claim_verifications', function (Blueprint $table) {
     $table->id();
     $table->foreignId('claim_id')->constrained()->cascadeOnDelete();
     $table->foreignId('verifier_user_id')->constrained('users')->restrictOnDelete();
-    $table->string('action'); // APPROVE | PARTIAL_APPROVE | REJECT
+    $table->string('status'); // APPROVE | PARTIAL_APPROVE | REJECT
     $table->text('notes')->nullable();
     $table->timestamps();
 });

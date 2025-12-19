@@ -217,14 +217,10 @@ class PromoRate extends Model
     protected $fillable = [
         'promo_program_id',
         'product_id',
-        'starts_at',
-        'ends_at',
         'amount_per_item'
     ];
 
     protected $casts = [
-        'starts_at' => 'date',
-        'ends_at' => 'date',
         'amount_per_item' => 'integer',
     ];
 

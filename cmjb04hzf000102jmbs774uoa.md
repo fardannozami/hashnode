@@ -430,7 +430,7 @@ class Disbursement extends Model
 ### Generate Resource
 
 ```bash
-php artisan make:filament-resource Product --panel=HeadOffice --generate
+php artisan make:filament-resource Product --panel=head-office --generate
 ```
 
 Filament akan membuat:
